@@ -1,0 +1,27 @@
+Modfest: Singularity
+
+Mod name: Celestria
+
+Feature: Celestrial Events (Shooting stars => Luck effect, Full moon => chance of insomnia potion effect)
+
+Chat messages: (Configurable via MidnightConfig lists, translation strings, \n for line break)
+	- Shooting stars: (On occurance)
+		- Oh, look! A shooting star appeared and blessed you with good luck!
+		- Wow, make a wish, a shooting star appeared!
+		- ♪ Can we pretend that airplanes in the night sky are like shooting stars... ♫
+		  Oh wait, there's a real one!
+		-
+	- Full moon: (When trying to sleep w/ insomnia effect)
+		- You're afraid of the full moon, so you just can't find no rest...
+		- Ouuwwwh... You hear strange noises from afar and can't close your eyes
+		- 
+		
+Technical details: 
+	- Shooting stars:
+		- randomly triggered serverside (only at night) and synced to all players
+		- can also be created using commands (for showcase - /celestria shooting_star %PLAYER% x z)
+		- server sends packet to client which then renders the shooting star (mixin into WorldRenderer)
+		- players get Minecraft's Luck effect
+	- Full moon:
+		- on start of night with full moon, players have an individual and configurable chance of receiving the 'Insomnia' effect
+		- effect prevents players from entering a bed, instead sending a chat message to inform them about the reason
