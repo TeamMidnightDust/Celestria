@@ -40,7 +40,7 @@ public class CelestriaClient implements ClientModInitializer {
                 (client, handler, attachedData, packetSender) -> client.execute(() -> CelestriaClient.clientOnlyMode = false));
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             if (shootingStarProgress > 0) --shootingStarProgress;
-            if (CelestriaClient.clientOnlyMode && client.world != null) {
+            if (CelestriaClient.clientOnlyMode && CelestriaConfig.enableShootingStars && client.world != null) {
                 if (Celestria.shootingStarCooldown > 0) --Celestria.shootingStarCooldown;
                 if (client.world.isNight() && Celestria.shootingStarCooldown <= 0 && client.world.random.nextInt(CelestriaConfig.shootingStarChance) == 0) {
                     CelestriaClient.shootingStarX = client.world.random.nextBetween(100, 150);

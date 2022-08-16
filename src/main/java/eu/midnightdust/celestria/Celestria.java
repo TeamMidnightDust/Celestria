@@ -49,18 +49,18 @@ public class Celestria implements ModInitializer {
         CommandRegistrationCallback.EVENT.register((dispatcher, dedicated, registrationEnvironment) -> dispatcher.register(finalized));
         ServerTickEvents.END_WORLD_TICK.register(world -> {
             if (shootingStarCooldown > 0) --shootingStarCooldown;
-            if (world.getPlayers().size() > prevPlayerAmount) {
+            if (world.getPlayers().size() > prevPlayerAmount && CelestriaConfig.enableShootingStars) {
                 world.getPlayers().forEach(player -> ServerPlayNetworking.send(player, WELCOME_PACKET, new PacketByteBuf(Unpooled.buffer())));
                 prevPlayerAmount = world.getPlayers().size();
             }
-            if (world.isNight() && world.getMoonPhase() == 0) {
+            if (world.isNight() && CelestriaConfig.enableInsomnia && world.getMoonPhase() == 0) {
                 for (ServerPlayerEntity player : world.getPlayers()) {
                     if (world.random.nextInt(CelestriaConfig.insomniaChance) == 0) {
                         player.addStatusEffect(new StatusEffectInstance(INSOMNIA, CelestriaConfig.insomniaDuration, 0, true, false, true));
                     }
                 }
             }
-            if (world.isNight() && Celestria.shootingStarCooldown <= 0 && world.random.nextInt(CelestriaConfig.shootingStarChance) == 0) {
+            if (world.isNight() && CelestriaConfig.enableShootingStars && Celestria.shootingStarCooldown <= 0 && world.random.nextInt(CelestriaConfig.shootingStarChance) == 0) {
                 int x = world.random.nextBetween(100, 150);
                 int y = world.random.nextInt(360);
                 int type = world.random.nextInt(3);

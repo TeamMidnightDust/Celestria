@@ -3,6 +3,7 @@ package eu.midnightdust.celestria.render;
 import com.mojang.blaze3d.systems.RenderSystem;
 import eu.midnightdust.celestria.Celestria;
 import eu.midnightdust.celestria.CelestriaClient;
+import eu.midnightdust.celestria.config.CelestriaConfig;
 import eu.midnightdust.lib.util.MidnightMathUtil;
 import net.minecraft.client.render.*;
 import net.minecraft.client.util.math.MatrixStack;
@@ -13,7 +14,7 @@ import net.minecraft.util.math.Vec3f;
 
 public class ShootingStarRenderer {
     public void renderShootingStar(ClientWorld world, MatrixStack matrices) {
-        if (world != null && CelestriaClient.shootingStarProgress > 0) {
+        if (world != null && CelestriaConfig.enableShootingStars && CelestriaClient.shootingStarProgress > 0) {
             world.getProfiler().swap("shooting_star");
             matrices.push();
             matrices.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(MidnightMathUtil.isEven(CelestriaClient.shootingStarType) ? CelestriaClient.shootingStarY + CelestriaClient.shootingStarProgress : CelestriaClient.shootingStarY - CelestriaClient.shootingStarProgress));

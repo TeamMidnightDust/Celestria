@@ -1,10 +1,12 @@
 {
 	"celestria.midnightconfig.title": "Celestria Konfiguration",
 	"celestria.midnightconfig.sendChatMessages": "Sende Chat Nachrichten bei Events",
+	"celestria.midnightconfig.enableShootingStars": "Aktiviere Sternschnuppen",
 	"celestria.midnightconfig.shootingStarChance": "Sternschnuppen-Wahrscheinlichkeit",
 	"celestria.midnightconfig.shootingStarCooldownLength": "Sternschnuppen Cooldown Länge",
 	"celestria.midnightconfig.shootingStarLuckDuration": "Sternschnuppen Glück Effektlänge",
 	"celestria.midnightconfig.shootingStarMessages": "Sternschnuppen-Nachrichten",
+	"celestria.midnightconfig.enableInsomnia": "Aktiviere Schlaflosigkeit",
 	"celestria.midnightconfig.insomniaChance": "Schlaflosigkeits-Wahrscheinlichkeit",
 	"celestria.midnightconfig.insomniaMessages": "Schlaflosigkeits-Nachrichten",
 	"celestria.midnightconfig.insomniaDuration": "Schlaflosigkeit Effektlänge",
@@ -13,5 +15,5 @@
 	"celestria.shootingStar.3": "§2♪ Can we pretend that airplanes in the night sky are like shooting stars... ♫\n§3Oh warte, da ist ja eine echte Sternschnuppe!",
 	"celestria.insomnia.1": "§cDu hast Angst vor dem Vollmond, also kannst du einfach nicht einschlafen...",
 	"celestria.insomnia.2": "§3Ouuwwwh... Du hörst seltsame Geräusche und kannst deine Augen nicht schließen",
-	"celestria.mob_effect.insomnia": "Schlaflosigkeit"
+	"effect.celestria.insomnia": "Schlaflosigkeit"
 }

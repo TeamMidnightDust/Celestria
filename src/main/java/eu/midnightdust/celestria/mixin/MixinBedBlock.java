@@ -23,7 +23,7 @@ public abstract class MixinBedBlock {
     public void celestria$onBedUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit, CallbackInfoReturnable<ActionResult> cir) {
         if (!world.isClient() && player instanceof ServerPlayerEntity serverPlayer && player.hasStatusEffect(Celestria.INSOMNIA)) {
             if (CelestriaConfig.sendChatMessages) serverPlayer.sendMessageToClient(Text.literal("§f§l[§7§lC§8§le§7§ll§f§le§7§ls§8§lt§7§lr§f§li§7§la§8§l] ").append(Text.translatable(CelestriaConfig.insomniaMessages.get(world.random.nextInt(CelestriaConfig.insomniaMessages.size())))),false);
-            cir.setReturnValue(ActionResult.FAIL);
+            cir.setReturnValue(ActionResult.CONSUME);
         }
     }
 }
