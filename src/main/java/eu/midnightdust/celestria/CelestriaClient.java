@@ -44,7 +44,7 @@ public class CelestriaClient implements ClientModInitializer {
                 if (Celestria.shootingStarCooldown > 0) {
                     --Celestria.shootingStarCooldown;
                 }
-                if (client.world.isNight() && Celestria.shootingStarCooldown <= 0 && Celestria.random.nextInt(CelestriaConfig.shootingStarChance) == 0) {
+                if (Celestria.shootingStarCooldown <= 0 && (180 < client.world.getSkyAngle(client.getTickDelta()) * 360 && 270 > client.world.getSkyAngle(client.getTickDelta()) * 360) && Celestria.random.nextInt(CelestriaConfig.shootingStarChance) == 0) {
                     CelestriaClient.shootingStarX = Celestria.random.nextBetween(100, 150);
                     CelestriaClient.shootingStarY = Celestria.random.nextInt(360);
                     CelestriaClient.shootingStarType = Celestria.random.nextInt(3);
