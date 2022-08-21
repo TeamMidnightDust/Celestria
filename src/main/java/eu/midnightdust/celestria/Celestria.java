@@ -28,6 +28,7 @@ import java.util.Collection;
 
 public class Celestria implements ModInitializer {
     public static final String MOD_ID = "celestria";
+    public static final Random random = Random.create();
     public static final Identifier SHOOTING_STAR_PACKET = new Identifier(MOD_ID, "shooting_star");
     public static final Identifier WELCOME_PACKET = new Identifier(MOD_ID, "welcome");
     public static final StatusEffect INSOMNIA = new InsomniaStatusEffect(StatusEffectCategory.HARMFUL, MidnightColorUtil.hex2Rgb("88A9C8").getRGB());
@@ -37,14 +38,13 @@ public class Celestria implements ModInitializer {
     public void onInitialize() {
         CelestriaConfig.init(MOD_ID, CelestriaConfig.class);
         Registry.register(Registry.STATUS_EFFECT, new Identifier(MOD_ID, "insomnia"), INSOMNIA);
-        LiteralArgumentBuilder<ServerCommandSource> command = CommandManager.literal("shootingStar");
-        var commandPlayers = command.then(CommandManager.argument("players", EntityArgumentType.players()));
-        var commandX = commandPlayers.then(CommandManager.argument("x", IntegerArgumentType.integer(90, 180)));
-        var commandY = commandX.then(CommandManager.argument("y", IntegerArgumentType.integer(0, 360)));
-        var commandType = commandY.then(CommandManager.argument("type", IntegerArgumentType.integer(0, 3)));
-        LiteralArgumentBuilder<ServerCommandSource> finalized = CommandManager.literal("celestria").requires(source -> source.hasPermissionLevel(2)).then(commandType).executes(ctx ->
-                createShootingStar(EntityArgumentType.getPlayers(ctx, "players"),
-                        IntegerArgumentType.getInteger(ctx, "x"), IntegerArgumentType.getInteger(ctx, "y"), IntegerArgumentType.getInteger(ctx, "type")));
+        LiteralArgumentBuilder<ServerCommandSource> command = CommandManager.literal("shootingStar").then(CommandManager.argument("players", EntityArgumentType.players())
+                .requires(source -> source.hasPermissionLevel(2)).executes(ctx -> createShootingStar(EntityArgumentType.getPlayers(ctx, "players"), random.nextBetween(100, 150), random.nextInt(360), random.nextInt(3)))
+                .then(CommandManager.argument("x", IntegerArgumentType.integer(90, 180))
+                .requires(source -> source.hasPermissionLevel(2)).then(CommandManager.argument("y", IntegerArgumentType.integer(0, 360))
+        .then(CommandManager.argument("type", IntegerArgumentType.integer(0, 3)).requires(source -> source.hasPermissionLevel(2)).executes(ctx -> createShootingStar(EntityArgumentType.getPlayers(ctx, "players"),
+                IntegerArgumentType.getInteger(ctx, "x"), IntegerArgumentType.getInteger(ctx, "y"), IntegerArgumentType.getInteger(ctx, "type")))))));
+        LiteralArgumentBuilder<ServerCommandSource> finalized = CommandManager.literal("celestria").then(command).requires(source -> source.hasPermissionLevel(2));
 
         CommandRegistrationCallback.EVENT.register((dispatcher, dedicated, registrationEnvironment) -> dispatcher.register(finalized));
         ServerTickEvents.END_WORLD_TICK.register(world -> {

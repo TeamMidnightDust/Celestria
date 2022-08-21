@@ -5,10 +5,12 @@ import eu.midnightdust.celestria.Celestria;
 import eu.midnightdust.celestria.CelestriaClient;
 import eu.midnightdust.celestria.config.CelestriaConfig;
 import eu.midnightdust.lib.util.MidnightMathUtil;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.*;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Matrix4f;
 import net.minecraft.util.math.Vec3f;
 
@@ -17,8 +19,9 @@ public class ShootingStarRenderer {
         if (world != null && CelestriaConfig.enableShootingStars && CelestriaClient.shootingStarProgress > 0) {
             world.getProfiler().swap("shooting_star");
             matrices.push();
-            matrices.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(MidnightMathUtil.isEven(CelestriaClient.shootingStarType) ? CelestriaClient.shootingStarY + CelestriaClient.shootingStarProgress : CelestriaClient.shootingStarY - CelestriaClient.shootingStarProgress));
-            matrices.multiply(Vec3f.POSITIVE_X.getDegreesQuaternion(CelestriaClient.shootingStarX));
+            matrices.scale(CelestriaConfig.shootingStarScale,CelestriaConfig.shootingStarScale,CelestriaConfig.shootingStarScale);
+            matrices.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(MidnightMathUtil.isEven(CelestriaClient.shootingStarType) ? CelestriaClient.shootingStarY + CelestriaClient.shootingStarProgress*CelestriaConfig.shootingStarSpeed : CelestriaClient.shootingStarY - CelestriaClient.shootingStarProgress*CelestriaConfig.shootingStarSpeed));
+            matrices.multiply(Vec3f.POSITIVE_X.getDegreesQuaternion(CelestriaClient.shootingStarX+(CelestriaClient.shootingStarProgress*CelestriaConfig.shootingStarSpeed*0.05f)));
             Matrix4f matrix4f = matrices.peek().getPositionMatrix();
             Tessellator tessellator = Tessellator.getInstance();
             BufferBuilder bufferBuilder = tessellator.getBuffer();

@@ -32,7 +32,7 @@ public class CelestriaClient implements ClientModInitializer {
                             CelestriaClient.shootingStarX = array[0];
                             CelestriaClient.shootingStarY = array[1];
                             CelestriaClient.shootingStarType = array[2];
-                            CelestriaClient.shootingStarProgress = 100 + shootingStarType * 10;
+                            CelestriaClient.shootingStarProgress = CelestriaConfig.shootingStarPathLength + shootingStarType * 10;
                         }
                     });
                 });
@@ -41,12 +41,14 @@ public class CelestriaClient implements ClientModInitializer {
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             if (shootingStarProgress > 0) --shootingStarProgress;
             if (CelestriaClient.clientOnlyMode && CelestriaConfig.enableShootingStars && client.world != null) {
-                if (Celestria.shootingStarCooldown > 0) --Celestria.shootingStarCooldown;
-                if (client.world.isNight() && Celestria.shootingStarCooldown <= 0 && client.world.random.nextInt(CelestriaConfig.shootingStarChance) == 0) {
-                    CelestriaClient.shootingStarX = client.world.random.nextBetween(100, 150);
-                    CelestriaClient.shootingStarY = client.world.random.nextInt(360);
-                    CelestriaClient.shootingStarType = client.world.random.nextInt(3);
-                    CelestriaClient.shootingStarProgress = 100 + shootingStarType * 10;
+                if (Celestria.shootingStarCooldown > 0) {
+                    --Celestria.shootingStarCooldown;
+                }
+                if (client.world.isNight() && Celestria.shootingStarCooldown <= 0 && Celestria.random.nextInt(CelestriaConfig.shootingStarChance) == 0) {
+                    CelestriaClient.shootingStarX = Celestria.random.nextBetween(100, 150);
+                    CelestriaClient.shootingStarY = Celestria.random.nextInt(360);
+                    CelestriaClient.shootingStarType = Celestria.random.nextInt(3);
+                    CelestriaClient.shootingStarProgress = CelestriaConfig.shootingStarPathLength + CelestriaClient.shootingStarType * 10;
                     Celestria.shootingStarCooldown = CelestriaConfig.shootingStarCooldownLength;
                 }
             }
