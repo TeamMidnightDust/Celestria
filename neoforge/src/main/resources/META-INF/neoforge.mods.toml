@@ -1,0 +1,38 @@
+modLoader = "javafml"
+loaderVersion = "[2,)"
+#issueTrackerURL = ""
+license = "MIT License"
+
+[[mods]]
+modId = "celestria"
+version = "${version}"
+displayName = "Celestria"
+logoFile = "icon.png"
+authors = "Motschen"
+description = '''
+Adds celestrial events, such as shooting stars and occasional insomnia from full moon.
+'''
+
+[[mixins]]
+config = "celestria.mixins.json"
+
+[[dependencies.celestria]]
+modId = "neoforge"
+mandatory = true
+versionRange = "[21.0,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.celestria]]
+modId = "minecraft"
+mandatory = true
+versionRange = "[1.21,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.celestria]]
+modId = "midnightlib"
+mandatory = true
+versionRange = "[1.0,)"
+ordering = "AFTER"
+side = "BOTH"
